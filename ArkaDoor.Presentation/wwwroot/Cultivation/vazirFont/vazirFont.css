@@ -1,0 +1,13 @@
+/* 
+ * Vazir-FD //Persian Font //Persian Digits
+ */
+@font-face {
+  font-family: 'vazir';
+  font-style: normal;
+  font-weight: normal;
+  src: url(Vazir-FD.eot);
+  src: url(Vazir-FD.eot?#iefix) format('embedded-opentype'),
+       url(Vazir-FD.woff2) format('woff2'),
+       url(Vazir-FD.woff) format('woff'),
+       url(Vazir-FD.ttf) format('truetype');
+}
