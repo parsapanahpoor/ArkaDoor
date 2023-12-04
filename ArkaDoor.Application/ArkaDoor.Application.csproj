@@ -10,4 +10,8 @@
     <Folder Include="CQRS\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ArkaDoor.Domain\ArkaDoor.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
