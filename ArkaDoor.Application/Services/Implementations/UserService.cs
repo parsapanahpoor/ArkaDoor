@@ -67,8 +67,8 @@ public class UserService : IUserService
 
         #region Send Verification Code SMS
 
-        var result = $"https://api.kavenegar.com/v1/6A427559367558527A76485753667A5779587337736735753945747946474F347A346A65356E7A567A51413D/verify/lookup.json?receptor={user.Mobile}&token={user.MobileActivationCode}&template=Register";
-        var results = client.GetStringAsync(result);
+        //var result = $"https://api.kavenegar.com/v1/6A427559367558527A76485753667A5779587337736735753945747946474F347A346A65356E7A567A51413D/verify/lookup.json?receptor={user.Mobile}&token={user.MobileActivationCode}&template=Register";
+        //var results = client.GetStringAsync(result);
 
         #endregion
 
@@ -124,8 +124,8 @@ public class UserService : IUserService
 
             #region Send Verification Code SMS
 
-            var result = $"https://api.kavenegar.com/v1/6A427559367558527A76485753667A5779587337736735753945747946474F347A346A65356E7A567A51413D/verify/lookup.json?receptor={user.Mobile}&token={user.MobileActivationCode}&template=Register";
-            var results = client.GetStringAsync(result);
+            //var result = $"https://api.kavenegar.com/v1/6A427559367558527A76485753667A5779587337736735753945747946474F347A346A65356E7A567A51413D/verify/lookup.json?receptor={user.Mobile}&token={user.MobileActivationCode}&template=Register";
+            //var results = client.GetStringAsync(result);
 
             #endregion
         }
@@ -206,15 +206,6 @@ public class UserService : IUserService
 
             return returnModel;
         }
-
-        #region Send Verification Code SMS
-
-        string date = $"{DateTime.Now.ToShamsi()}";
-
-        var result = $"https://api.kavenegar.com/v1/6A427559367558527A76485753667A5779587337736735753945747946474F347A346A65356E7A567A51413D/verify/lookup.json?receptor={model.Mobile}&token={DateTime.Now.ToShamsi()}&template=Wellcoming";
-        var results = client.GetStringAsync(result);
-
-        #endregion
 
         returnModel.LoginUserResponse = LoginUserResponse.Success;
         returnModel.User = user;

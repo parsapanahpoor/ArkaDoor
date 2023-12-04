@@ -33,7 +33,7 @@ public class AccountController : SiteBaseController
 		return View();
 	}
 
-	[HttpPost , ValidateAntiForgeryToken]
+	[HttpPost("Register") , ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(UserRegisterDTO register , CancellationToken cancellationToken = default)
     {
 		if (ModelState.IsValid)
@@ -142,23 +142,24 @@ public class AccountController : SiteBaseController
             var result = await _userService.LoginUserAsync(model , cancellationToken);
                 switch (result.LoginUserResponse)
                 {
-                case LoginUserResponse.Success:
-                    break;
+                    case LoginUserResponse.Success:
+                        break;
 
                     case LoginUserResponse.UserNotFound:
                         ModelState.AddModelError("Email", "کاربری با اطلاعات وارد شده صحیح نمی باشد .");
-                    return View(model);
+                        return View(model);
 
-                case LoginUserResponse.UserNotActive:
+                    case LoginUserResponse.UserNotActive:
                         ModelState.AddModelError("Error", "حساب کاربری شما فعال نمی باشد.");
                         return RedirectToAction("ActiveUserByMobileActivationCode", new { Mobile = model.Mobile, Resend = true });
 
                     case LoginUserResponse.WrongPassword:
                         ModelState.AddModelError("Password", "کلمه ی عبور وارد شده صحیح نمی باشد.");
-                    return View(model);
-                default:
+                        return View(model);
+
+                    default:
                         ModelState.AddModelError("Error", "اطلاعات وارد شده صحیح نمی باشد.");
-                    return View(model);
+                        return View(model);
             }
 
             var claims = new List<Claim>
@@ -183,4 +184,14 @@ public class AccountController : SiteBaseController
 
     #endregion
 
+    #region Logout
+
+    [HttpGet("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return Redirect("/");
+    }
+
+    #endregion
 }

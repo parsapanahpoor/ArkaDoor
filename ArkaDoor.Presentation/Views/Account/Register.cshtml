@@ -1,0 +1,53 @@
+﻿@model ArkaDoor.Domain.DTOs.SiteSide.Account.UserRegisterDTO
+
+@{
+    ViewData["Title"] = "ثبت نام";
+    Layout = "Identity/_IdentityLayout";
+}
+
+<div class="register-container animated fadeInDown">
+    <form method="post" dir="rtl" asp-antiforgery="true">
+        <div class="registerbox bg-white">
+            <div class="registerbox-title">ثبت نام</div>
+
+            @if (ViewData.ModelState.ErrorCount > 0)
+            {
+                <div asp-validation-summary="All" class="alert alert-danger margin-left-20 margin-right-20 margin-top-10"></div>
+            }
+
+            <div class="registerbox-caption text-right">اطلاعات خود را وارد کنید</div>
+
+            <div class="registerbox-textbox">
+                <label asp-for="Mobile">موبایل</label>
+                <input asp-for="Mobile" class="form-control" placeholder="مثال 09**********" />
+                <span asp-validation-for="Mobile" class="text-danger small"></span>
+            </div>
+
+            <div class="registerbox-textbox">
+                <label asp-for="Password">کلمه ی عبور</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+            <div class="registerbox-textbox">
+                <label asp-for="RePassword">تکرار کلمه ی عبور</label>
+                <input asp-for="RePassword" class="form-control" />
+                <span asp-validation-for="RePassword" class="text-danger small"></span>
+            </div>
+
+            <div class="registerbox-textbox">
+                <a asp-action="Login">ورود</a>
+            </div>
+
+            <div class="registerbox-submit mt-3" dir="rtl">
+                <input type="submit" class="btn btn-primary" value="ثبت نام">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/Identity/Register.js"></script>
+}

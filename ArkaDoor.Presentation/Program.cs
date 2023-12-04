@@ -5,6 +5,7 @@ using ArkaDoor.Domain.IRepositories.Users;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 using ArkaDoor.Infrastructure.Persistence.Repositories.Users;
 using ArkaDoor.Infrastructure.Persistence.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArkaDoor.Presentation;
@@ -38,6 +39,25 @@ public class Program
         builder.Services.AddScoped<IUserQueryRepository , UsersQueryRepository>();
         builder.Services.AddScoped<IUsersCommandRepository , UsersCommandRepository>();
         builder.Services.AddScoped<IUserService , UserService>();
+
+        #endregion
+
+        #region Authentication
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+            // Add Cookie settings
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+            });
 
         #endregion
 
