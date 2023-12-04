@@ -1,8 +1,6 @@
 using ArkaDoor.Application.Common.IUnitOfWork;
 using ArkaDoor.Application.Services.Implementations;
-using ArkaDoor.Application.Services.Implementations.UserService;
 using ArkaDoor.Application.Services.Interfaces;
-using ArkaDoor.Application.Services.Interfaces.IUserService;
 using ArkaDoor.Domain.IRepositories.Users;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 using ArkaDoor.Infrastructure.Persistence.Repositories.Users;
@@ -39,7 +37,7 @@ public class Program
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IUserQueryRepository , UsersQueryRepository>();
         builder.Services.AddScoped<IUsersCommandRepository , UsersCommandRepository>();
-        builder.Services.AddScoped<IUserService , UserService();
+        builder.Services.AddScoped<IUserService , UserService>();
 
         #endregion
 

@@ -8,5 +8,7 @@ public interface IUsersCommandRepository
 
     Task AddAsync(User entity, CancellationToken cancellationToken);
 
+    void Update(User entity);
+
     #endregion
 }

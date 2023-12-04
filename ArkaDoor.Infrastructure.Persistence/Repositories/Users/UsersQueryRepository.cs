@@ -31,5 +31,11 @@ public class UsersQueryRepository : QueryGenericRepository<User> , IUserQueryRep
                              .AnyAsync(p => p.Mobile == mobile);
     }
 
+    public async Task<User?> GetUserByMobileAsync(string mobile, CancellationToken cancellation)
+    {
+        return await _context.Users
+                             .FirstOrDefaultAsync(p => !p.IsDelete && p.Mobile == mobile); 
+    }
+
     #endregion
 }
