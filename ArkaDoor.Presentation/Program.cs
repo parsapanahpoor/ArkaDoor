@@ -1,4 +1,10 @@
+using ArkaDoor.Application.Common.IUnitOfWork;
+using ArkaDoor.Application.Services.Implementations.UserService;
+using ArkaDoor.Application.Services.Interfaces.IUserService;
+using ArkaDoor.Domain.IRepositories.Users;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
+using ArkaDoor.Infrastructure.Persistence.Repositories.Users;
+using ArkaDoor.Infrastructure.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArkaDoor.Presentation;
@@ -23,6 +29,16 @@ public class Program
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("AkaDoorDbContextConnection"));
         });
+
+        #endregion
+
+        #region Services
+
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IUserQueryRepository , UsersQueryRepository>();
+        builder.Services.AddScoped<IUsersCommandRepository , UsersCommandRepository>();
+        builder.Services.AddScoped<IUserCommandService , UserCommandService>();
+        builder.Services.AddScoped<IUserQueryService , UserQueryService>();
 
         #endregion
 
@@ -52,6 +68,5 @@ public class Program
         app.Run();
 
         #endregion
-      
     }
 }

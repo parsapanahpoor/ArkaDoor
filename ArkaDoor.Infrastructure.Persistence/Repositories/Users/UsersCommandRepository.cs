@@ -20,6 +20,4 @@ public class UsersCommandRepository : CommandGenericRepository<User> , IUsersCom
     }
 
     #endregion
-
-
 }

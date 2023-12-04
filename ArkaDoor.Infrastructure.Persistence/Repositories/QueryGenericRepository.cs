@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArkaDoor.Infrastructure.Persistence.Repositories;
 
-public class QueryGenericRepository<TEntity> : IQueryGenericRepository<TEntity> where TEntity : class
+public class QueryGenericRepository<TEntity> where TEntity : class
 {
     #region Ctor
 
@@ -42,5 +42,4 @@ public class QueryGenericRepository<TEntity> : IQueryGenericRepository<TEntity> 
     }
 
     #endregion
-
 }

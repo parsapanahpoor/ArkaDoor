@@ -1,12 +1,13 @@
 ﻿#region Using
 
+using ArkaDoor.Application.Services.Interfaces.IUserService;
 using ArkaDoor.Domain.IRepositories.Users;
 
 namespace ArkaDoor.Application.Services.Implementations.UserService;
 
 #endregion
 
-public class UserCommandService : IUsersCommandRepository
+public class UserCommandService : IUserCommandService
 {
 	#region Ctor
 

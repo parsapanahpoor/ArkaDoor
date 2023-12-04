@@ -1,15 +1,20 @@
-﻿using ArkaDoor.Domain.IRepositories;
+﻿#region Using
+
+using ArkaDoor.Domain.IRepositories;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 using ArkaDoor.Utilitiese;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArkaDoor.Infrastructure.Persistence.Repositories;
 
-public class CommandGenericRepository<TEntity> : ICommandGenericRepository<TEntity> where TEntity : class
+#endregion
+
+public class CommandGenericRepository<TEntity> where TEntity : class
 {
     #region Ctor
 
     protected readonly AkaDoorDbContext _context;
+
     public DbSet<TEntity> Entities { get; }
 
     public CommandGenericRepository(AkaDoorDbContext context)
