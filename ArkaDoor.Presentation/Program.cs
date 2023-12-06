@@ -36,9 +36,9 @@ public class Program
         #region Services
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        builder.Services.AddScoped<IUserQueryRepository , UsersQueryRepository>();
-        builder.Services.AddScoped<IUsersCommandRepository , UsersCommandRepository>();
-        builder.Services.AddScoped<IUserService , UserService>();
+        builder.Services.AddScoped<IUserQueryRepository, UsersQueryRepository>();
+        builder.Services.AddScoped<IUsersCommandRepository, UsersCommandRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
 
         #endregion
 
@@ -79,6 +79,10 @@ public class Program
         app.UseRouting();
 
         app.UseAuthorization();
+
+        app.MapControllerRoute(
+            name: "area",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
         app.MapControllerRoute(
             name: "default",
