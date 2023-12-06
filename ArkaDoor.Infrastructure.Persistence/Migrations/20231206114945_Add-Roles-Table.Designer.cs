@@ -4,6 +4,7 @@ using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArkaDoor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AkaDoorDbContext))]
-    partial class AkaDoorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231206114945_Add-Roles-Table")]
+    partial class AddRolesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,17 +122,6 @@ namespace ArkaDoor.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1m,
-                            CreateDate = new DateTime(2023, 12, 6, 15, 22, 57, 9, DateTimeKind.Local).AddTicks(2518),
-                            IsDelete = false,
-                            RoleUniqueName = "Admin",
-                            Title = "Admin",
-                            UpdateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Window.Domain.Entities.Account.UserRole", b =>

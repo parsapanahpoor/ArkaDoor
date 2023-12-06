@@ -4,6 +4,7 @@ using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArkaDoor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AkaDoorDbContext))]
-    partial class AkaDoorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231206115257_Add-Role-SeedData")]
+    partial class AddRoleSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
