@@ -1,6 +1,6 @@
 ﻿using ArkaDoor.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
-using Window.Domain.Entities.Account;
+using ArkaDoor.Domain.Entities.Account;
 
 namespace ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 

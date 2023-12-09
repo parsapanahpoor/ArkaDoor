@@ -1,4 +1,5 @@
 ﻿using ArkaDoor.Application.Services.Interfaces;
+using ArkaDoor.Domain.DTOs.Admin;
 using ArkaDoor.Domain.IRepositories.Role;
 
 namespace ArkaDoor.Application.Services.Implementations;
@@ -32,6 +33,16 @@ public class RoleService : IRoleService
         if(userRolesName != null && userRolesName.Any() && userRolesName.Contains("Admin")) return true;
 
         return false;
+    }
+
+    public async Task<FilterRolesDTO> FilterRoles(FilterRolesDTO filter , CancellationToken cancellation)
+    {
+        return await _queryRepository.FilterRoles(filter , cancellation);
+    }
+
+    public async Task<Domain.Entities.Account.Role?> GetRoleById(ulong roleId, CancellationToken cancellation)
+    {
+        return await _queryRepository.GetRoleById(roleId , cancellation);
     }
 
     #endregion

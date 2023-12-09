@@ -1,8 +1,10 @@
 using ArkaDoor.Application.Common.IUnitOfWork;
 using ArkaDoor.Application.Services.Implementations;
 using ArkaDoor.Application.Services.Interfaces;
+using ArkaDoor.Domain.IRepositories.Role;
 using ArkaDoor.Domain.IRepositories.Users;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
+using ArkaDoor.Infrastructure.Persistence.Repositories.Role;
 using ArkaDoor.Infrastructure.Persistence.Repositories.Users;
 using ArkaDoor.Infrastructure.Persistence.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,6 +41,9 @@ public class Program
         builder.Services.AddScoped<IUserQueryRepository, UsersQueryRepository>();
         builder.Services.AddScoped<IUsersCommandRepository, UsersCommandRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IRoleService, RoleService>();
+        builder.Services.AddScoped<IRoleCommandRepository, RoleCommandRepository>();
+        builder.Services.AddScoped<IRoleQueryRepository, RoleQueryRepository>();
 
         #endregion
 

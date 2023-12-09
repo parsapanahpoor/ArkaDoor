@@ -1,5 +1,5 @@
 ﻿using ArkaDoor.Domain.Common;
-namespace Window.Domain.Entities.Account;
+namespace ArkaDoor.Domain.Entities.Account;
 
 public class Role : BaseEntities<ulong>
 {
