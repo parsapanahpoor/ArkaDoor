@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ArkaDoor.Application\ArkaDoor.Application.csproj" />
     <ProjectReference Include="..\ArkaDoor.Infrastructure.Persistence\ArkaDoor.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 

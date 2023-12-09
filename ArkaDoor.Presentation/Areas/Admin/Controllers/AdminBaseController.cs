@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ArkaDoor.Presentation.Areas.Admin.ActionFilterAttributes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArkaDoor.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]
-    //[CheckUserHasAnyRole]
+    [CheckUserHasAnyRole]
     public class AdminBaseController : Controller
     {
         public static string SuccessMessage = "SuccessMessage";

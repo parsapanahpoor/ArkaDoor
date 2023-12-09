@@ -1,23 +1,21 @@
-﻿//using Academy.Application.Extensions;
-//using Academy.Application.Services.Interfaces;
-//using Microsoft.AspNetCore.Mvc.Filters;
+﻿using ArkaDoor.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Filters;
+namespace ArkaDoor.Presentation.Areas.Admin.ActionFilterAttributes;
+using ArkaDoor.Application.Utilities.Extensions;
 
-//namespace Academy.Web.Areas.Admin.ActionFilterAttributes
-//{
-//    public class CheckUserHasAnyRole : ActionFilterAttribute
-//    {
-//        public override void OnActionExecuting(ActionExecutingContext context)
-//        {
-//            var service = (IPermissionService)context.HttpContext.RequestServices.GetService(typeof(IPermissionService))!;
+public class CheckUserHasAnyRole : ActionFilterAttribute
+{
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        var service = (IRoleService)context.HttpContext.RequestServices.GetService(typeof(IRoleService))!;
 
-//            base.OnActionExecuting(context);
+        base.OnActionExecuting(context);
 
-//            var hasUserAnyRole = service.CheckUserHasAnyRole(context.HttpContext.User.GetUserId()).Result;
+        var hasUserAnyRole = service.IsUserAdmin(context.HttpContext.User.GetUserId() , default).Result;
 
-//            if (!hasUserAnyRole)
-//            {
-//                context.HttpContext.Response.Redirect("/");
-//            }
-//        }
-//    }
-//}
+        if (!hasUserAnyRole)
+        {
+            context.HttpContext.Response.Redirect("/");
+        }
+    }
+}
