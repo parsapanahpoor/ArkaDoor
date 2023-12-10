@@ -1,4 +1,6 @@
 ﻿using ArkaDoor.Domain.DTOs.Admin;
+using ArkaDoor.Domain.DTOs.Common;
+
 namespace ArkaDoor.Application.Services.Interfaces;
 
 public interface IRoleService
@@ -8,6 +10,8 @@ public interface IRoleService
     Task<bool> IsRoleNameValid(string name, ulong roleId, CancellationToken cancellationToken);
 
     Task<Domain.Entities.Account.Role?> GetRoleById(ulong roleId, CancellationToken cancellation);
+
+    Task<List<SelectListViewModel>> GetSelectRolesList(CancellationToken cancellation);
 
     #endregion
 

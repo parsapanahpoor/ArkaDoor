@@ -1,6 +1,7 @@
 ﻿using ArkaDoor.Application.Common.IUnitOfWork;
 using ArkaDoor.Application.Services.Interfaces;
 using ArkaDoor.Domain.DTOs.Admin;
+using ArkaDoor.Domain.DTOs.Common;
 using ArkaDoor.Domain.Entities.Account;
 using ArkaDoor.Domain.IRepositories.Role;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,11 @@ public class RoleService : IRoleService
     public async Task<bool> IsRoleNameValid(string name, ulong roleId, CancellationToken cancellationToken)
     {
         return await _queryRepository.IsRoleNameValid(name, roleId, cancellationToken);
+    }
+
+    public async Task<List<SelectListViewModel>> GetSelectRolesList(CancellationToken cancellation)
+    {
+        return await _queryRepository.GetSelectRolesList(cancellation);
     }
 
     #endregion

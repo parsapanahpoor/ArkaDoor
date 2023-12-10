@@ -1,11 +1,19 @@
 ﻿using ArkaDoor.Application.Common.IUnitOfWork;
+using ArkaDoor.Application.Extensions;
+using ArkaDoor.Application.Generators;
 using ArkaDoor.Application.Security;
 using ArkaDoor.Application.Services.Interfaces;
+using ArkaDoor.Application.StaticTools;
 using ArkaDoor.Application.Utilities.Security;
 using ArkaDoor.Domain.DTOs.Admin.User;
 using ArkaDoor.Domain.DTOs.SiteSide.Account;
+using ArkaDoor.Domain.Entities.Account;
 using ArkaDoor.Domain.Entities.Users;
+using ArkaDoor.Domain.IRepositories.Role;
 using ArkaDoor.Domain.IRepositories.Users;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+
 namespace ArkaDoor.Application.Services.Implementations;
 
 public class UserService : IUserService
@@ -16,14 +24,20 @@ public class UserService : IUserService
     private readonly IUsersCommandRepository _usersCommandRepository;
     private readonly IUnitOfWork _unitOfWork;
     private static readonly HttpClient client = new HttpClient();
+    private readonly IRoleQueryRepository _roleQueryRepository;
+    private readonly IRoleCommandRepository _roleCommandRepository;
 
     public UserService(IUserQueryRepository userQueryRepository,
                        IUsersCommandRepository usersCommandRepository,
-                       IUnitOfWork unitOfWork)
+                       IUnitOfWork unitOfWork,
+                       IRoleQueryRepository roleQueryRepository , 
+                       IRoleCommandRepository roleCommandRepository)
     {
         _userQueryRepository = userQueryRepository;
         _usersCommandRepository = usersCommandRepository;
         _unitOfWork = unitOfWork;
+        _roleQueryRepository = roleQueryRepository;
+        _roleCommandRepository = roleCommandRepository;
     }
 
     #endregion
@@ -225,9 +239,98 @@ public class UserService : IUserService
 
     #region Admin Side 
 
+    public async Task<EditUserDTO> GetUserForEdit(ulong userId, CancellationToken cancellation)
+    {
+        //Get User By Id 
+        var user = await GetByIdAsync(cancellation, userId);
+
+        //Get User Selected Role By User Id
+        var userRoleIds = await _roleQueryRepository.GetUserSelectedRoleIdByUserId(userId, cancellation);
+
+        return new EditUserDTO()
+        {
+            Username = user.Username,
+            Mobile = user.Mobile,
+            Avatar = user.Avatar,
+            UserRoles = userRoleIds
+        };
+    }
+
     public async Task<FilterUserDTO> FilterUsers(FilterUserDTO filter)
     {
         return await _userQueryRepository.FilterUsers(filter);
+    }
+
+    public async Task<EditUserResult> EditUser(EditUserDTO user, IFormFile avatar, CancellationToken cancellation)
+    {
+        //Get User By Id 
+        var userOldInfos = await _userQueryRepository.GetByIdAsync(cancellation, user.Id);
+        if (userOldInfos == null) return EditUserResult.Error;
+
+        //Checkind incomin mobile 
+        if (await _userQueryRepository.IsMobileExist(user.Mobile, cancellation) && user.Mobile != userOldInfos.Mobile)
+        {
+            return EditUserResult.DuplicateMobileNumber;
+        }
+
+        if (userOldInfos != null)
+        {
+            userOldInfos.Username = user.Username;
+            userOldInfos.Mobile = user.Mobile.SanitizeText();
+
+            if (user.Password != null)
+            {
+                userOldInfos.Password = user.Password.SanitizeText();
+            }
+
+            #region User Avatar
+
+            if (avatar != null && avatar.IsImage())
+            {
+                if (!string.IsNullOrEmpty(userOldInfos.Avatar))
+                {
+                    userOldInfos.Avatar.DeleteImage(FilePaths.UserAvatarPathServer, FilePaths.UserAvatarPathThumbServer);
+                }
+
+                var imageName = CodeGenerator.GenerateUniqCode() + Path.GetExtension(avatar.FileName);
+                avatar.AddImageToServer(imageName, FilePaths.UserAvatarPathServer, 270, 270, FilePaths.UserAvatarPathThumbServer);
+                userOldInfos.Avatar = imageName;
+            }
+
+            #endregion
+
+            _usersCommandRepository.Update(userOldInfos);
+
+            #region Delete User Roles
+
+            await _roleCommandRepository.RemoveUserRolesByUserId(user.Id , cancellation);
+
+            #endregion
+
+            #region Add User Roles
+
+            if (user.UserRoles != null && user.UserRoles.Any())
+            {
+                foreach (var roleId in user.UserRoles)
+                {
+                    var userRole = new UserRole()
+                    {
+                        RoleId = roleId,
+                        UserId = user.Id
+                    };
+
+                    await _roleCommandRepository.AddUserSelectedRole(userRole , cancellation);
+                }
+            }
+
+            #endregion
+
+            await _unitOfWork.SaveChangesAsync(cancellation);
+
+            return EditUserResult.Success;
+        }
+
+        return EditUserResult.Error;
     }
 
     #endregion

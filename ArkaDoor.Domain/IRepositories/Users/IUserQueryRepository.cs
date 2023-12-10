@@ -19,5 +19,7 @@ public interface IUserQueryRepository
 
     Task<User> GetByIdAsync(CancellationToken cancellationToken, params object[] ids);
 
+    Task<bool> IsMobileExist(string mobile, CancellationToken cancellation);
+
     #endregion
 }

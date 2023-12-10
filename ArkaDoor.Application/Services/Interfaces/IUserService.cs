@@ -2,6 +2,7 @@
 using ArkaDoor.Domain.DTOs.SiteSide.Account;
 using ArkaDoor.Domain.Entities.Users;
 using ArkaDoor.Domain.IRepositories.Users;
+using Microsoft.AspNetCore.Http;
 
 namespace ArkaDoor.Application.Services.Interfaces;
 
@@ -28,7 +29,11 @@ public interface IUserService
 
     #region Admin Side 
 
+    Task<EditUserDTO> GetUserForEdit(ulong userId, CancellationToken cancellation);
+
     Task<FilterUserDTO> FilterUsers(FilterUserDTO filter);
+
+    Task<EditUserResult> EditUser(EditUserDTO user, IFormFile avatar, CancellationToken cancellation);
 
     #endregion
 }

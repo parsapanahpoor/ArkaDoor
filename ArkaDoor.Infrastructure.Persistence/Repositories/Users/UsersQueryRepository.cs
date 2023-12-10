@@ -88,5 +88,11 @@ public class UsersQueryRepository : QueryGenericRepository<User> , IUserQueryRep
         return filter;
     }
 
+    public async Task<bool> IsMobileExist(string mobile , CancellationToken cancellation)
+    {
+        return await _context.Users
+                             .AnyAsync(u => u.Mobile == mobile);
+    }
+
     #endregion
 }
