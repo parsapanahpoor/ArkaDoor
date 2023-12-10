@@ -43,7 +43,7 @@ public class AccountController : SiteBaseController
             {
                 case RegisterUserResponse.Success:
                     TempData["success"] = "ثبت نام شما باموفقیت انجام شده است .";
-                    return RedirectToAction("ActiveUserByMobileActivationCode", new { Mobile = register.Mobile });
+                    return RedirectToAction(nameof(Login));
 
                 case RegisterUserResponse.MobileExist:
                     TempData["error"] = "کاربری با موبایل وارد شده در سایت موجود است.";

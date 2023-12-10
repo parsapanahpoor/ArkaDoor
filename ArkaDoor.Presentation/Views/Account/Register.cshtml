@@ -16,7 +16,7 @@
             </div>
             <h3>به cultivation خوش آمدید!</h3>
             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه</p>
-            <a href="javascript:;" class="clv_btn white_btn pop_signin">ورود</a>
+            <a asp-action="Login" asp-controller="Account" asp-area="" class="clv_btn white_btn pop_signin">ورود</a>
             <ul>
                 <li>
                     <a href="javascript:;"><span><i class="fa fa-facebook" aria-hidden="true"></i></span></a>
@@ -40,11 +40,11 @@
                     <span asp-validation-for="Mobile" class="text-danger small"></span>
                 </div>
                 <div class="form_block">
-                    <input type="text" class="form_field" asp-for="Password" placeholder="کلمه ی عبور">
+                    <input type="password" class="form_field" asp-for="Password" placeholder="کلمه ی عبور">
                     <span asp-validation-for="Password" class="text-danger small"></span>
                 </div>
                 <div class="form_block">
-                    <input type="text" asp-for="RePassword" class="form_field" placeholder="تکرار کلمه ی عبور">
+                    <input type="password" asp-for="RePassword" class="form_field" placeholder="تکرار کلمه ی عبور">
                     <span asp-validation-for="RePassword" class="text-danger small"></span>
                 </div>
                 <button class="clv_btn">عضویت</button>

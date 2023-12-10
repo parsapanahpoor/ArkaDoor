@@ -74,9 +74,9 @@ public class UserService : IUserService
             CreateDate = DateTime.Now,
             IsAdmin = false,
             MobileActivationCode = new Random().Next(10000, 999999).ToString(),
-            ExpireMobileSMSDateTime = DateTime.Now
+            ExpireMobileSMSDateTime = DateTime.Now,
+            IsMobileConfirm = true
         };
-
 
         #endregion
 

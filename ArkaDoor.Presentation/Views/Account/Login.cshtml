@@ -1,60 +1,67 @@
 ﻿@model ArkaDoor.Domain.DTOs.SiteSide.Account.LoginUserDTO
 @{
     ViewData["Title"] = "ورود";
-    Layout = "Identity/_IdentityLayout";
 }
 
-<div class="login-container animated fadeInDown">
-    <form method="post" dir="" ltr" asp-antiforgery="true">
-        <div class="loginbox bg-white">
-            <div class="loginbox-title">ورود</div>
-
-            @if (ViewData.ModelState.ErrorCount > 0)
-            {
-                <div asp-validation-summary="All" class="alert alert-danger margin-left-20 margin-right-20 margin-top-10"></div>
-            }
-
-            <div class="loginbox-textbox">
-                <label asp-for="Mobile">موبایل</label>
-                <input asp-for="Mobile" class="form-control" />
-                <span asp-validation-for="Mobile" class="text-danger small"></span>
+@if (ViewData.ModelState.ErrorCount > 0)
+{
+    <div asp-validation-summary="All" class="alert alert-danger margin-left-20 margin-right-20 margin-top-10"></div>
+}
+<div class="signup_wrapper open_signup">
+    <div class="signup_inner" style="height: 100%;width: 100%;">
+        <div class="signup_details">
+            <div class="site_logo">
+                <a href="index.html"> <img src="/Cultivation/images/logo_white.png" alt="image"></a>
             </div>
-
-            <div class="loginbox-textbox">
-                <label asp-for="Password">کلمه ی عبور</label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger small"></span>
-            </div>
-
-            <div class="loginbox-textbox no-padding-bottom">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="RememberMe" class="colored-primary">
-                        <span class="text darkgray"> مرا به خاطر بسپار </span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="loginbox-textbox">
-                <a asp-action="ForgotPassword" asp-area="" asp-controller="Account">فراموشی روز عبور ]</a>
-            </div>
-
-            <div class="loginbox-textbox">
-                <a asp-action="Register">ثبت نام</a>
-            </div>
-
-            <div class="loginbox-submit mt-3" dir="rtl">
-                <input type="submit" class="btn btn-primary" value="ورود">
-            </div>
-
+            <h3>به cultivation خوش آمدید!</h3>
+            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه</p>
+            <a asp-action="register" asp-controller="Account" asp-area="" class="clv_btn white_btn pop_signin">ثبت نام</a>
+            <ul>
+                <li>
+                    <a href="javascript:;"><span><i class="fa fa-facebook" aria-hidden="true"></i></span></a>
+                </li>
+                <li>
+                    <a href="javascript:;"><span><i class="fa fa-twitter" aria-hidden="true"></i></span></a>
+                </li>
+                <li>
+                    <a href="javascript:;"><span><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+                </li>
+                <li><a href="javascript:;"><span><i class="fa fa-youtube-play" aria-hidden="true"></i></span></a></li>
+            </ul>
         </div>
-    </form>
+
+        <div class="signup_form_section">
+            <form method="post" asp-antiforgery="true">
+                <h4>ورود به حساب</h4>
+                <img src="/Cultivation/images/clv_underline.png" alt="image">
+                <div class="form_block">
+                    <input type="text" asp-for="Mobile" class="form_field" placeholder="موبایل">
+                    <span asp-validation-for="Mobile" class="text-danger small"></span>
+                </div>
+                <div class="form_block">
+                    <input type="password" class="form_field" asp-for="Password" placeholder="کلمه ی عبور">
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="loginbox-textbox no-padding-bottom">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="RememberMe" class="colored-primary">
+                            <span class="text darkgray"> مرا به خاطر بسپار </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="loginbox-textbox mt-2 mb-4 ">
+                    <a asp-action="ForgotPassword" asp-area="" asp-controller="Account">فراموشی روز عبور </a>
+                </div>
+
+                <button class="clv_btn">ورود</button>
+            </form>
+        </div>
+    </div>
 </div>
 
-@section Scripts
-    {
-    <partial name="_ValidationScriptsPartial" />
-    <partial name="_SweetAlertLocalizer" />
-}
+
 
 

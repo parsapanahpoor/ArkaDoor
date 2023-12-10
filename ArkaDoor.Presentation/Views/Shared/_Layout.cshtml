@@ -58,15 +58,7 @@
 											</ul>
 										</li>
 										<li><a href="about.html">درباره ما</a></li>
-										<li><a href="service.html">خدمات</a></li>
-										<li><a href="gallery.html">گالری</a></li>
-										<li>
-											<a href="javascript:;">بلاگ</a>
-											<ul>
-												<li><a href="blog.html">بلاگ</a></li>
-												<li><a href="blog_single.html">ادامه مطلب بلاگ</a></li>
-											</ul>
-										</li>
+									
 										<li>
 											<a href="javascript:;">صفحات</a>
 											<ul>
@@ -78,7 +70,29 @@
 												<li><a href="404.html">404</a></li>
 											</ul>
 										</li>
-										<li><a href="contact.html">تماس با ما</a></li>
+
+										@if (User.Identity.IsAuthenticated)
+										{
+													<li>
+														<a 
+																						asp-action="logout"
+																					asp-area="" 
+																					asp-controller="Account">
+																					خروج
+																				</a>
+																				</li>
+																					<li>
+														 خوش آمدید ! @User.Identity.Name 
+																				</li>
+
+										}
+										else
+										{
+																					<li><a 
+																						asp-action="Register"
+																					asp-area="" 
+																					asp-controller="Account">ثبت نام</a></li>
+										}
 									</ul>
 								</div>
 								<div class="cart_nav">
