@@ -1,6 +1,4 @@
-﻿<!-- Page Sidebar -->
-<div class="page-sidebar" id="sidebar">
-    <!-- Sidebar Menu -->
+﻿<div class="page-sidebar" id="sidebar">
     <ul class="nav sidebar-menu">
 
         <li>
@@ -18,6 +16,7 @@
             </a>
         </li>
 
+        <!--Role-->
         <li>
             <a href="#" class="menu-dropdown">
                 <i class="menu-icon fa fa-user-secret"></i>
@@ -39,7 +38,22 @@
             </ul>
         </li>
 
+        <!--User-->
+        <li>
+            <a href="#" class="menu-dropdown">
+                <i class="menu-icon fa fa-user"></i>
+                <span class="menu-text"> مدیریت کاربران</span>
+                <i class="menu-expand"></i>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a asp-action="Index" asp-controller="User" asp-area="Admin">
+                        <span class="menu-text"> لیست کاربران </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
     </ul>
-    <!-- /Sidebar Menu -->
 </div>
-<!-- /Page Sidebar -->

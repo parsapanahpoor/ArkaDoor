@@ -1,11 +1,15 @@
-﻿using ArkaDoor.Domain.DTOs.SiteSide.Account;
+﻿using ArkaDoor.Domain.DTOs.Admin.User;
+using ArkaDoor.Domain.DTOs.SiteSide.Account;
 using ArkaDoor.Domain.Entities.Users;
+using ArkaDoor.Domain.IRepositories.Users;
 
 namespace ArkaDoor.Application.Services.Interfaces;
 
 public interface IUserService
 {
     #region General
+
+    Task<User> GetByIdAsync(CancellationToken cancellationToken, params object[] ids);
 
     Task<RegisterUserResponse> RegisterUserAsync(UserRegisterDTO userRegisterDTO, CancellationToken cancellationToken);
 
@@ -19,6 +23,12 @@ public interface IUserService
                                                                         CancellationToken cancellationToken);
 
     Task<LoginUserDTOResponse> LoginUserAsync(LoginUserDTO model, CancellationToken cancellationToken);
+
+    #endregion
+
+    #region Admin Side 
+
+    Task<FilterUserDTO> FilterUsers(FilterUserDTO filter);
 
     #endregion
 }

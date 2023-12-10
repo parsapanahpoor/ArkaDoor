@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArkaDoor.Domain.DTOs.Common;
+using System.ComponentModel.DataAnnotations;
 
-namespace ArkaDoor.Domain.DTOs.Admin.User
+namespace ArkaDoor.Domain.DTOs.Admin.User;
+
+public class FilterUserDTO : BasePaging<Entities.Users.User>
 {
-    internal class FilterUserDTO
-    {
-    }
+    #region properties
+
+    public string Username { get; set; }
+
+    public string Mobile { get; set; }
+
+    public bool IsDelete { get; set; }
+
+    public FilterUserOrderType OrderType { get; set; }
+
+    #endregion
+}
+
+public enum FilterUserOrderType
+{
+    [Display(Name = "نزولی")]
+    CreateDate_DES,
+    [Display(Name = "صعودی")]
+    CreateDate_ASC,
 }

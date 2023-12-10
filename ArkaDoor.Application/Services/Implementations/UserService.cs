@@ -2,6 +2,7 @@
 using ArkaDoor.Application.Security;
 using ArkaDoor.Application.Services.Interfaces;
 using ArkaDoor.Application.Utilities.Security;
+using ArkaDoor.Domain.DTOs.Admin.User;
 using ArkaDoor.Domain.DTOs.SiteSide.Account;
 using ArkaDoor.Domain.Entities.Users;
 using ArkaDoor.Domain.IRepositories.Users;
@@ -17,12 +18,21 @@ public class UserService : IUserService
     private static readonly HttpClient client = new HttpClient();
 
     public UserService(IUserQueryRepository userQueryRepository,
-                       IUsersCommandRepository usersCommandRepository , 
+                       IUsersCommandRepository usersCommandRepository,
                        IUnitOfWork unitOfWork)
     {
         _userQueryRepository = userQueryRepository;
         _usersCommandRepository = usersCommandRepository;
         _unitOfWork = unitOfWork;
+    }
+
+    #endregion
+
+    #region General 
+
+    public async Task<User> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
+    {
+        return await _userQueryRepository.GetByIdAsync(cancellationToken, ids);
     }
 
     #endregion
@@ -58,7 +68,7 @@ public class UserService : IUserService
 
         #region Add User To The Data Base
 
-        await _usersCommandRepository.AddAsync(user , cancellationToken);
+        await _usersCommandRepository.AddAsync(user, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         #endregion
@@ -75,12 +85,12 @@ public class UserService : IUserService
 
     public async Task<bool> IsExistUserByMobileAsync(string mobile, CancellationToken cancellationToken)
     {
-        return await _userQueryRepository.IsExistUserByMobileAsync(mobile , cancellationToken);
+        return await _userQueryRepository.IsExistUserByMobileAsync(mobile, cancellationToken);
     }
 
     public async Task<User?> GetUserByMobileAsync(string mobile, CancellationToken cancellation)
     {
-        return await _userQueryRepository.GetUserByMobileAsync(mobile , cancellation);
+        return await _userQueryRepository.GetUserByMobileAsync(mobile, cancellation);
     }
 
     public async Task<SendActivationCodeDTO> SendActivationCodeForUser(string Mobile, CancellationToken cancellationToken, bool Resend = false)
@@ -100,7 +110,7 @@ public class UserService : IUserService
 
         #region Get User By User ID
 
-        var user = await _userQueryRepository.GetUserByMobileAsync(Mobile , cancellationToken);
+        var user = await _userQueryRepository.GetUserByMobileAsync(Mobile, cancellationToken);
         if (user == null)
         {
             returnModel.SendActivationCodeResult = SendActivationCodeResult.UserNotFound;
@@ -146,7 +156,7 @@ public class UserService : IUserService
         return returnModel;
     }
 
-    public async Task<ActiveMobileByActivationCodeResult> ActiveUserMobile(ActiveMobileByActivationCodeDTO activeMobileByActivationCodeDTO ,
+    public async Task<ActiveMobileByActivationCodeResult> ActiveUserMobile(ActiveMobileByActivationCodeDTO activeMobileByActivationCodeDTO,
                                                                            CancellationToken cancellationToken)
     {
         #region Get User By Mobile
@@ -177,12 +187,12 @@ public class UserService : IUserService
         return ActiveMobileByActivationCodeResult.Success;
     }
 
-    public async Task<LoginUserDTOResponse> LoginUserAsync(LoginUserDTO model , CancellationToken cancellationToken)
+    public async Task<LoginUserDTOResponse> LoginUserAsync(LoginUserDTO model, CancellationToken cancellationToken)
     {
         LoginUserDTOResponse returnModel = new();
 
         //Get User By Mobile 
-        var user = await _userQueryRepository.GetUserByMobileAsync(model.Mobile.SanitizeText() , cancellationToken);
+        var user = await _userQueryRepository.GetUserByMobileAsync(model.Mobile.SanitizeText(), cancellationToken);
 
         if (user == null)
         {
@@ -215,7 +225,10 @@ public class UserService : IUserService
 
     #region Admin Side 
 
-
+    public async Task<FilterUserDTO> FilterUsers(FilterUserDTO filter)
+    {
+        return await _userQueryRepository.FilterUsers(filter);
+    }
 
     #endregion
 }
