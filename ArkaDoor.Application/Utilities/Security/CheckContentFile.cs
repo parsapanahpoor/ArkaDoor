@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Drawing;
 using System.Text.RegularExpressions;
 
 namespace ArkaDoor.Application.Security;

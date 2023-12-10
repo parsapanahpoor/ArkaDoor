@@ -333,5 +333,20 @@ public class UserService : IUserService
         return EditUserResult.Error;
     }
 
+    public async Task<bool> RemoveUserById(ulong userId , CancellationToken cancellation)
+    {
+        var removedUser = await GetByIdAsync(cancellation , userId);
+        if (removedUser == null) return false;
+
+        //Soft Delete
+        removedUser.IsDelete = true;
+
+        _usersCommandRepository.Update(removedUser);
+
+        await _unitOfWork.SaveChangesAsync(cancellation);
+
+        return true;
+    }
+
     #endregion
 }

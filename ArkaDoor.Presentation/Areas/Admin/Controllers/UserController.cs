@@ -1,6 +1,8 @@
-﻿using ArkaDoor.Application.Services.Interfaces;
+﻿using AngleSharp.Io;
+using ArkaDoor.Application.Services.Interfaces;
 using ArkaDoor.Areas.Admin.Controllers;
 using ArkaDoor.Domain.DTOs.Admin.User;
+using ArkaDoor.Presentation.HttpManager;
 using Microsoft.AspNetCore.Mvc;
 namespace ArkaDoor.Presentation.Areas.Admin.Controllers;
 
@@ -62,7 +64,7 @@ public class UserController : AdminBaseController
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditUser(EditUserDTO userDTO, IFormFile avatar, 
+    public async Task<IActionResult> EditUser(EditUserDTO userDTO, IFormFile UserAvatar, 
                                               CancellationToken cancellation = default)
     {
         #region Page Data
@@ -71,7 +73,7 @@ public class UserController : AdminBaseController
 
         #endregion
 
-        var res = await _userService.EditUser(userDTO, avatar , cancellation);
+        var res = await _userService.EditUser(userDTO, UserAvatar, cancellation);
         switch (res)
         {
             case EditUserResult.DuplicateEmail:
@@ -87,6 +89,18 @@ public class UserController : AdminBaseController
         }
 
         return View();
+    }
+
+    #endregion
+
+    #region remove user
+
+    public async Task<IActionResult> RemoveUser(ulong userId , CancellationToken cancellation = default)
+    {
+        var res = await _userService.RemoveUserById(userId , default);
+        if (res) return JsonResponseStatus.Success();
+
+        return JsonResponseStatus.Error();
     }
 
     #endregion

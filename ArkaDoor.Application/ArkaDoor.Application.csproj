@@ -9,6 +9,9 @@
   <ItemGroup>
     <Folder Include="CQRS\" />
 	  <PackageReference Include="HtmlSanitizer" Version="6.0.453" />
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+	  <PackageReference Include="SixLabors.ImageSharp" Version="3.1.0" />
+	  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

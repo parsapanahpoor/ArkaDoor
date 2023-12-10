@@ -45,15 +45,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="Mobile">موبایل</label>
-                                <input asp-for="Mobile" class="form-control" placeholder="موبایل" />
+                                <input asp-for="Mobile" readonly class="form-control" placeholder="موبایل" />
                                 <span class="text-danger" asp-validation-for="Mobile"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label asp-for="Password">کلمه ی عبور</label>
-                                <input type="text" asp-for="Password" placeholder="Password" class="form-control">
-                                <span class="text-danger" asp-validation-for="Password"></span>
                             </div>
                         </div>
 
@@ -70,12 +63,20 @@
 
                 <div class="col-lg-12">
                     <div class="widget">
-                        <div class="widget-header bordered-bottom bordered-blue">
-                            <span class="widget-caption">  آواتار</span>
-
+                        <div class="widget-header bordered-bottom bordered-green">
+                            <span class="widget-caption"> آواتار کاربر </span>
                         </div>
                         <div class="widget-body">
-                            <div class=" d-flex justify-content-center mb-3 ">
+                            <div class="row">
+
+                                <input type="file" class="display-none" name="UserAvatar" id="UserAvatar" ImageInput="1" accept=".jpg,.jpeg,.png" />
+
+                                <div class="col-md-12">
+                                    <label for="UserAvatar" class="file-input-style">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span class="mr-8px"> لطفا آواتار کاربر را انتخاب کنید .</span>
+                                    </label>
+                                </div>
 
                                 @{
                                     var avatarUrl = FilePaths.DefaultUserAvatar;
@@ -86,15 +87,11 @@
                                     }
                                 }
 
-                                <img class="avatarPreview" id="avatarPreview" imagefile="user-avatar" src="@avatarUrl" alt="User Avatar">
-                            </div>
-                            <div class="input-group mb-3 chooseUserAvatarInEditUserInAdmin">
-                                <div>
-                                    <input type="file" asp-for="Avatar" imageinput="user-avatar" onchange="loadAvatar(event)" class="custom-file-input" id="NewAvatar">
-                                    <label class="btn btn-primary " for="NewAvatar">تصویر کاربر</label>
+                                <div class="col-md-12 tc mt-10px">
+                                    <img src="@avatarUrl" class="image-style" ImageFile="1" />
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>

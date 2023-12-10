@@ -62,6 +62,15 @@
                                     </button>
                                 </div>
 
+                                @if (Context.Request.QueryString.HasValue)
+                                {
+                                    <div class="form-group col-md-12">
+                                        <a asp-action="Index" asp-controller="User" asp-area="Admin" class="btn btn-labeled w-100 btn-darkorange" >
+                                            <i class="btn-label glyphicon glyphicon-remove"></i>حذف فیلتر
+                                        </a>
+                                    </div>
+                                }
+
                             </form>
                         </div>
 
@@ -132,6 +141,10 @@
                                                 </a>
                                                 <button onclick="DeleteAjax(@item.Id, '@Url.Action("RemoveUser", "User", new {area = "Admin", userId = item.Id})')" class="btn btn-danger btn-circle btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
 
+                                            }
+                                            else
+                                            {
+                                                <div class="badge badge-danger">حذف شده</div>
                                             }
                                         </div>
                                     </td>

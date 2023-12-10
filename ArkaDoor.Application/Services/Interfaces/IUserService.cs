@@ -35,5 +35,7 @@ public interface IUserService
 
     Task<EditUserResult> EditUser(EditUserDTO user, IFormFile avatar, CancellationToken cancellation);
 
+    Task<bool> RemoveUserById(ulong userId, CancellationToken cancellation);
+
     #endregion
 }
