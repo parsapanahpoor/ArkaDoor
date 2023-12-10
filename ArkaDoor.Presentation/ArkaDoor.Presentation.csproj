@@ -11,10 +11,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.11" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ArkaDoor.Application\ArkaDoor.Application.csproj" />
     <ProjectReference Include="..\ArkaDoor.Infrastructure.Persistence\ArkaDoor.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\content\images\user\main\" />
+    <Folder Include="wwwroot\content\images\user\thumb\" />
   </ItemGroup>
 
 </Project>

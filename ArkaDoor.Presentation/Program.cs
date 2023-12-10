@@ -1,10 +1,13 @@
 using ArkaDoor.Application.Common.IUnitOfWork;
-using ArkaDoor.Application.Services.Implementations.UserService;
-using ArkaDoor.Application.Services.Interfaces.IUserService;
+using ArkaDoor.Application.Services.Implementations;
+using ArkaDoor.Application.Services.Interfaces;
+using ArkaDoor.Domain.IRepositories.Role;
 using ArkaDoor.Domain.IRepositories.Users;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
+using ArkaDoor.Infrastructure.Persistence.Repositories.Role;
 using ArkaDoor.Infrastructure.Persistence.Repositories.Users;
 using ArkaDoor.Infrastructure.Persistence.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArkaDoor.Presentation;
@@ -35,10 +38,31 @@ public class Program
         #region Services
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        builder.Services.AddScoped<IUserQueryRepository , UsersQueryRepository>();
-        builder.Services.AddScoped<IUsersCommandRepository , UsersCommandRepository>();
-        builder.Services.AddScoped<IUserCommandService , UserCommandService>();
-        builder.Services.AddScoped<IUserQueryService , UserQueryService>();
+        builder.Services.AddScoped<IUserQueryRepository, UsersQueryRepository>();
+        builder.Services.AddScoped<IUsersCommandRepository, UsersCommandRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IRoleService, RoleService>();
+        builder.Services.AddScoped<IRoleCommandRepository, RoleCommandRepository>();
+        builder.Services.AddScoped<IRoleQueryRepository, RoleQueryRepository>();
+
+        #endregion
+
+        #region Authentication
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+            // Add Cookie settings
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+            });
 
         #endregion
 
@@ -60,6 +84,10 @@ public class Program
         app.UseRouting();
 
         app.UseAuthorization();
+
+        app.MapControllerRoute(
+            name: "area",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
         app.MapControllerRoute(
             name: "default",

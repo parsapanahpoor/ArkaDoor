@@ -1,5 +1,6 @@
 ﻿using ArkaDoor.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
+using ArkaDoor.Domain.Entities.Account;
 
 namespace ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 
@@ -21,6 +22,16 @@ public class AkaDoorDbContext : DbContext
 
     #endregion
 
+    #region Role
+
+    public DbSet<Role> Roles { get; set; }
+
+    public DbSet<UserRole> UserRoles { get; set; }
+
+    #endregion
+
+    #region OnConfiguring
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
@@ -28,7 +39,21 @@ public class AkaDoorDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        #region Role Seed Data
 
+        modelBuilder.Entity<Role>().HasData(new Role
+        {
+            Id = 1,
+            Title = "Admin",
+            RoleUniqueName = "Admin",
+            CreateDate = DateTime.Now,
+            IsDelete = false
+        });
+
+        #endregion
+
+        base.OnModelCreating(modelBuilder);
     }
+
+    #endregion
 }

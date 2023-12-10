@@ -10691,9 +10691,7 @@ Purchase:
  }
 
  .signup_wrapper>.signup_inner {
- 	width: 100%;
- 	max-width: 902px;
- 	min-height: 600px;
+
  	background-color: #ffffff;
  	border-radius: 10px;
  	position: relative;

@@ -1,0 +1,84 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'IRANSans',tahoma;
+    color: #26292a;
+    font-size: 14px;
+    word-spacing: -2px
+}
+
+html, body {
+    overflow-x: hidden !important;
+}
+
+a:link, a:hover {
+    text-decoration: none;
+    outline: 0 !important
+}
+
+a:active {
+    color: #54c3ed
+}
+
+i, span, label, a {
+    display: inline-block;
+    font-weight: normal;
+}
+
+ul {
+    list-style: none !important;
+    list-style-type: none !important;
+    margin: 0;
+    padding: 0
+}
+
+img {
+    max-width: 100%
+}
+
+.container {
+    width: 700px;
+    margin: 0 auto;
+    display: block;
+}
+
+    .container img {
+        width: 100%;
+    }
+
+    .container h1 {
+        font-size: 22px;
+        line-height: 30px;
+        text-align: center;
+        margin: 15px 0
+    }
+
+    .container p {
+        font-size: 18px;
+        line-height: 30px;
+        text-align: center;
+    }
+
+@media only screen and (max-width : 768px) {
+    .container
+    {
+        width: 100%;
+        padding: 0 15px
+    }
+
+    .container h1 {
+        font-size: 18px
+    }
+
+    .container p {
+        font-size: 15px
+    }
+}
