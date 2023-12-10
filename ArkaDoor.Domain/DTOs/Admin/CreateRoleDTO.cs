@@ -14,8 +14,6 @@ public record class CreateRoleDTO
     [DisplayName("نام یکتا")]
     [Required(ErrorMessage = "Please Enter {0}")]
     public string RoleUniqueName { get; set; }
-
-    public List<ulong>? Permissions { get; set; }
     
     #endregion
 }

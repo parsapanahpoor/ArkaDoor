@@ -52,13 +52,7 @@ namespace ArkaDoor.Presentation.Areas.Admin.Controllers
                 return View(create);
             }
 
-            if (create.Permissions == null || !create.Permissions.Any())
-            {
-                TempData[ErrorMessage] = "انتخاب یکی از دسترسی ها الزامی است .";
-                return View(create);
-            }
-
-            var result = await _permissionService.CreateRole(create);
+            var result = await _roleService.CreateRole(create , cancellationToken);
 
             if (result)
             {

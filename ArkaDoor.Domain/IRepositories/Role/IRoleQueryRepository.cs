@@ -12,6 +12,8 @@ public interface IRoleQueryRepository
 
     Task<Domain.Entities.Account.Role?> GetRoleById(ulong roleId, CancellationToken cancellation);
 
+    Task<bool> IsRoleNameValid(string name, ulong roleId , CancellationToken cancellationToken);
+
     #endregion
 
     #region Admin Panel 

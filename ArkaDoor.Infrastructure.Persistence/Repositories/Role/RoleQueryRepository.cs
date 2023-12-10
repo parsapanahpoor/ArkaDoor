@@ -20,6 +20,18 @@ public class RoleQueryRepository : IRoleQueryRepository
 
     #region General Methods 
 
+    public async Task<bool> IsRoleNameValid(string name, ulong roleId, CancellationToken cancellationToken)
+    {
+        var role = await _context.Roles
+                                 .AsNoTracking()
+                                 .FirstOrDefaultAsync(s => s.RoleUniqueName.Equals(name.Trim().ToLower()));
+
+        if (role == null) return true;
+        if (roleId != 0 && role.Id == roleId) return true;
+
+        return false;
+    }
+
     public async Task<bool> IsUserIsSuperAdmin(ulong userId , CancellationToken cancellationToken)
     { 
         return await _context.Users
