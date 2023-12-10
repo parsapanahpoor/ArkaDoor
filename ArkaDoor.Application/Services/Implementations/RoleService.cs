@@ -37,6 +37,21 @@ public class RoleService : IRoleService
 
     #region Admin Side 
 
+    public async Task<EditRoleDTO?> FillEditRoleViewModel(ulong roleId , CancellationToken cancellationToken)
+    {
+        var role = await GetRoleById(roleId , cancellationToken);
+        if (role == null) return null;
+
+        var result = new EditRoleDTO
+        {
+            Id = roleId,
+            RoleUniqueName = role.RoleUniqueName,
+            Title = role.Title,
+        };
+
+        return result;
+    }
+
     public async Task<bool> IsUserAdmin(ulong userId , CancellationToken cancellationToken)
     {
         //Check That is user super admin 
@@ -71,8 +86,41 @@ public class RoleService : IRoleService
             Title = create.Title
         };
 
-        await _commandRepository.AddRole(role , cancellation);
+        await _commandRepository.AddAsync(role , cancellation);
         await _unitOfWork.SaveChangesAsync(cancellation);
+
+        return true;
+    }
+
+    public async Task<EditRoleResult> EditRole(EditRoleDTO edit , CancellationToken cancellationToken)
+    {
+        //Get Role By Id
+        var role = await GetRoleById(edit.Id , cancellationToken);
+        if (role == null) return EditRoleResult.RoleNotFound;
+        if (!await IsRoleNameValid(edit.RoleUniqueName, edit.Id , cancellationToken))return EditRoleResult.UniqueNameExists;
+
+        //Fill Model
+        role.Title = edit.Title;
+        role.RoleUniqueName = edit.RoleUniqueName;
+
+        //Edit Role
+        _commandRepository.Update(role);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return EditRoleResult.Success;
+    }
+
+    public async Task<bool> DeleteRole(ulong roleId , CancellationToken cancellation)
+    {
+        //Get Role By Id 
+        var role = await GetRoleById(roleId , cancellation);
+        if (role == null) return false;
+
+        //Delete Recorde
+        role.IsDelete = true;
+
+        _commandRepository.Update(role);
+        await _unitOfWork.SaveChangesAsync();
 
         return true;
     }

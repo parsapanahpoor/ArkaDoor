@@ -6,7 +6,9 @@ public interface IRoleCommandRepository
 {
     #region Admin Panel 
 
-    Task AddRole(Domain.Entities.Account.Role role, CancellationToken cancellationToken);
+    void Update(Domain.Entities.Account.Role role);
+
+    Task AddAsync(Domain.Entities.Account.Role role , CancellationToken cancellationToken);
 
     #endregion
 }

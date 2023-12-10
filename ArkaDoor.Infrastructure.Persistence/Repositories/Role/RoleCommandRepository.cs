@@ -1,16 +1,15 @@
-﻿using ArkaDoor.Domain.Entities.Account;
-using ArkaDoor.Domain.IRepositories.Role;
+﻿using ArkaDoor.Domain.IRepositories.Role;
 using ArkaDoor.Infrastructure.Persistence.ApplicationDbContext;
 
 namespace ArkaDoor.Infrastructure.Persistence.Repositories.Role;
 
-public class RoleCommandRepository : IRoleCommandRepository
+public class RoleCommandRepository : CommandGenericRepository<Domain.Entities.Account.Role>,  IRoleCommandRepository 
 {
 	#region Ctor
 
 	private readonly AkaDoorDbContext _context;
 
-    public RoleCommandRepository(AkaDoorDbContext context)
+    public RoleCommandRepository(AkaDoorDbContext context) : base(context)
     {
         _context = context;
     }
@@ -18,11 +17,6 @@ public class RoleCommandRepository : IRoleCommandRepository
     #endregion
 
     #region Admin Panel 
-
-    public async Task AddRole(Domain.Entities.Account.Role role , CancellationToken cancellationToken)
-    {
-        await _context.Roles.AddAsync(role);
-    }
 
     #endregion
 }

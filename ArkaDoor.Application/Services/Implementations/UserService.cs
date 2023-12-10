@@ -1,12 +1,10 @@
 ﻿using ArkaDoor.Application.Common.IUnitOfWork;
-using ArkaDoor.Application.Convertors;
 using ArkaDoor.Application.Security;
 using ArkaDoor.Application.Services.Interfaces;
 using ArkaDoor.Application.Utilities.Security;
 using ArkaDoor.Domain.DTOs.SiteSide.Account;
 using ArkaDoor.Domain.Entities.Users;
 using ArkaDoor.Domain.IRepositories.Users;
-
 namespace ArkaDoor.Application.Services.Implementations;
 
 public class UserService : IUserService
@@ -212,6 +210,12 @@ public class UserService : IUserService
 
         return returnModel;
     }
+
+    #endregion
+
+    #region Admin Side 
+
+
 
     #endregion
 }

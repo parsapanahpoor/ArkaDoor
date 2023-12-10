@@ -101,7 +101,6 @@
                                     <p> @role.RoleUniqueName </p>
                                 </td>
                                 <td class="tc vm">
-                                    <a asp-area="Admin" asp-controller="Role" asp-action="FilterRoles" asp-route-ParentId="@role.Id" class="btn btn-primary btn-circle btn-xs"><i class="glyphicon glyphicon-list"></i></a>
                                     <a asp-action="EditRole" asp-controller="Role" asp-area="Admin" asp-route-id="@role.Id" class="btn btn-warning btn-circle btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
                                     <button onclick="DeleteAjax(@role.Id, '@Url.Action("DeleteRole", "Role", new { area = "Admin", roleId = role.Id })')" class="btn btn-danger btn-circle btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
