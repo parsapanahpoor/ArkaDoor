@@ -2,52 +2,55 @@
 
 @{
     ViewData["Title"] = "ثبت نام";
-    Layout = "Identity/_IdentityLayout";
 }
 
-<div class="register-container animated fadeInDown">
-    <form method="post" dir="rtl" asp-antiforgery="true">
-        <div class="registerbox bg-white">
-            <div class="registerbox-title">ثبت نام</div>
-
-            @if (ViewData.ModelState.ErrorCount > 0)
-            {
-                <div asp-validation-summary="All" class="alert alert-danger margin-left-20 margin-right-20 margin-top-10"></div>
-            }
-
-            <div class="registerbox-caption text-right">اطلاعات خود را وارد کنید</div>
-
-            <div class="registerbox-textbox">
-                <label asp-for="Mobile">موبایل</label>
-                <input asp-for="Mobile" class="form-control" placeholder="مثال 09**********" />
-                <span asp-validation-for="Mobile" class="text-danger small"></span>
+@if (ViewData.ModelState.ErrorCount > 0)
+{
+    <div asp-validation-summary="All" class="alert alert-danger margin-left-20 margin-right-20 margin-top-10"></div>
+}
+<div class="signup_wrapper open_signup">
+    <div class="signup_inner" style="height: 100%;width: 100%;">
+        <div class="signup_details">
+            <div class="site_logo">
+                <a href="index.html"> <img src="/Cultivation/images/logo_white.png" alt="image"></a>
             </div>
-
-            <div class="registerbox-textbox">
-                <label asp-for="Password">کلمه ی عبور</label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger small"></span>
-            </div>
-
-            <div class="registerbox-textbox">
-                <label asp-for="RePassword">تکرار کلمه ی عبور</label>
-                <input asp-for="RePassword" class="form-control" />
-                <span asp-validation-for="RePassword" class="text-danger small"></span>
-            </div>
-
-            <div class="registerbox-textbox">
-                <a asp-action="Login">ورود</a>
-            </div>
-
-            <div class="registerbox-submit mt-3" dir="rtl">
-                <input type="submit" class="btn btn-primary" value="ثبت نام">
-            </div>
+            <h3>به cultivation خوش آمدید!</h3>
+            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه</p>
+            <a href="javascript:;" class="clv_btn white_btn pop_signin">ورود</a>
+            <ul>
+                <li>
+                    <a href="javascript:;"><span><i class="fa fa-facebook" aria-hidden="true"></i></span></a>
+                </li>
+                <li>
+                    <a href="javascript:;"><span><i class="fa fa-twitter" aria-hidden="true"></i></span></a>
+                </li>
+                <li>
+                    <a href="javascript:;"><span><i class="fa fa-linkedin" aria-hidden="true"></i></span></a>
+                </li>
+                <li><a href="javascript:;"><span><i class="fa fa-youtube-play" aria-hidden="true"></i></span></a></li>
+            </ul>
         </div>
-    </form>
+
+        <div class="signup_form_section">
+            <form method="post" asp-antiforgery="true">
+                <h4>ساخت حساب</h4>
+                <img src="/Cultivation/images/clv_underline.png" alt="image">
+                <div class="form_block">
+                    <input type="text" asp-for="Mobile" class="form_field" placeholder="موبایل">
+                    <span asp-validation-for="Mobile" class="text-danger small"></span>
+                </div>
+                <div class="form_block">
+                    <input type="text" class="form_field" asp-for="Password" placeholder="کلمه ی عبور">
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="form_block">
+                    <input type="text" asp-for="RePassword" class="form_field" placeholder="تکرار کلمه ی عبور">
+                    <span asp-validation-for="RePassword" class="text-danger small"></span>
+                </div>
+                <button class="clv_btn">عضویت</button>
+            </form>
+        </div>
+    </div>
 </div>
 
-@section Scripts
-    {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="/Identity/Register.js"></script>
-}
+
